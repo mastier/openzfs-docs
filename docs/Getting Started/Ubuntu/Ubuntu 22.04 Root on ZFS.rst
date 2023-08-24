@@ -302,8 +302,8 @@ Step 2: Disk Formatting
 
    You should not need to customize any of the options for the boot pool.
 
-   Ignore the warnings about the features “not in specified 'compatibility'
-   feature set.”
+   You may ignore the warnings about the features “not in specified 'compatibility'
+   feature set.” or add these features to /etc/zfs/compatibility.d/grub2.
 
    GRUB does not support all of the zpool features. See ``spa_feature_names``
    in `grub-core/fs/zfs/zfs.c
@@ -312,6 +312,14 @@ Step 2: Disk Formatting
    limited to only those that GRUB supports, allowing the root pool to use
    any/all features. Note that GRUB opens the pool read-only, so all
    read-only compatible features are “supported” by GRUB.
+
+   Optionally you can copy these options from /usr/share/zfs/compatibility.d/grub2
+   to /etc/zfs/compatibility.d/grub2 and these missing features.
+
+     [ ! -f /etc/zfs/compatibility.d/ ] || mkdir /etc/zfs/compatibility.d
+
+     cp /usr/share/zfs/compatibility.d/grub2 /etc/zfs/compatibility.d/
+     echo -e "# Extra features\nlivelist\nzpool_checkpoint" > /etc/zfs/compatibility.d/grub2
 
    **Hints:**
 
